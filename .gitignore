@@ -1,0 +1,8 @@
+*
+!*/
+!.gitignore
+!*.s
+!*.tex
+!*.circ
+!*.cpp
+!*.h
