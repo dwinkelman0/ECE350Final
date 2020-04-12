@@ -35,6 +35,20 @@ populate_data:
 # $r4 (const): word to test
 # $r5 (const): memory location of output
 # $r2: end location of output
+#
+# The function encodes the provided input, applies noise to the encoded word,
+# and attempts to decode to the original word. All test cases should result in
+# either recovering the original word or discovering that the encoded word
+# became corrupted.
+#
+# This function tests six classes of cases:
+#  1. There is no noise
+#  2. There is noise applied to exactly one bit (exhaustively)
+#  3. There is noise applied to two data bits
+#  4. There is noise applied to two parity bits (exhaustively)
+#  5. There is noise applied to one data bit and one parity bit
+#  6. There is noise applied to the security bit and one other bit (exhaustively)
+#
 test_sequence:
 		sw   $r31, 0($r29)
 		sw   $r16, -1($r29)
@@ -174,6 +188,29 @@ test_sequence:
 		addi $r14, $r0, 25
 		sra  $r15, $r15, 1
 		bne  $r15, $r0, test_sequence_2n_dp_loop
+
+	test_sequence_2n_s:
+		addi $r11, $r0, 6
+		sll  $r11, $r11, 28
+		addi $r13, $r0, 1
+		sll  $r13, $r13, 30
+		addi $r14, $r0, 31
+		addi $r15, $r0, 1
+		sll  $r15, $r15, 31
+		addi $r31, $r0, test_sequence_2n_s_loop_return_point
+
+	test_sequence_2n_s_loop:
+		or   $r7, $r11, $r14
+		or   $r12, $r13, $r15
+		henc $r8, $r4
+		xor  $r8, $r8, $r12
+		hdec $r9, $r8
+		j    test_sequence_check_success
+
+	test_sequence_2n_s_loop_return_point:
+		sra  $r13, $r13, 1
+		addi $r14, $r14, -1
+		bne  $r13, $r0, test_sequence_2n_s_loop
 
 	test_sequence_return:
 		addi $r2, $r16, 0
