@@ -38,17 +38,19 @@ populate_data:
 test_sequence:
 		sw   $r31, 0($r29)
 		sw   $r16, -1($r29)
-		addi $r29, $r29, -2
+		sw   $r17, -2($r29)
+		sw   $r18, -3($r29)
+		addi $r29, $r29, -4
 
 		addi $r16, $r5, 0
 		sw   $r4, 0($r16)
 		sw   $r0, 1($r16)
 		addi $r16, $r16, 2
 
-		addi $r13, $r0, 204
-		sll  $r13, $r13, 24
-		addi $r14, $r0, 136
-		sll  $r14, $r14, 24
+		addi $r17, $r0, 204
+		sll  $r17, $r17, 24
+		addi $r18, $r0, 136
+		sll  $r18, $r18, 24
 		j    test_sequence_0n
 
 	# $r7: test code
@@ -56,19 +58,20 @@ test_sequence:
 			bex  test_sequence_check_success_2e
 			bne  $r9, $r4, test_sequence_check_success_1e
 			sw   $r7, 0($r16)
-			sw   $r14, 1($r16)
+			sw   $r18, 1($r16)
 			addi $r16, $r16, 2
 			jr   $r31
 
 		test_sequence_check_success_1e:
 			sw   $r7, 0($r16)
-			sw   $r13, 1($r16)
+			sw   $r9, 1($r16)
 			addi $r16, $r16, 2
 			jr   $r31
 
 		test_sequence_check_success_2e:
+			setx 0
 			sw   $r7, 0($r16)
-			sw   $r9, 1($r16)
+			sw   $r17, 1($r16)
 			addi $r16, $r16, 2
 			jr   $r31
 
@@ -83,11 +86,11 @@ test_sequence:
 	test_sequence_1n:
 		sll  $r11, $r7, 1
 		addi $r12, $r0, 1
-		addi $r15, $r0, 1
+		addi $r13, $r0, 1
 		addi $r31, $r0, test_sequence_1n_loop_return_point
 
 	test_sequence_1n_loop:
-		or   $r7, $r11, $r15
+		or   $r7, $r11, $r13
 		henc $r8, $r4
 		xor  $r8, $r8, $r12
 		hdec $r9, $r8
@@ -95,14 +98,36 @@ test_sequence:
 
 	test_sequence_1n_loop_return_point:
 		sll  $r12, $r12, 1
-		addi $r15, $r15, 1
+		addi $r13, $r13, 1
 		bne  $r12, $r0, test_sequence_1n_loop
+
+	test_sequence_2n_dd:
+		sra  $r12, $r11, 1
+		add  $r11, $r11, $r12
+		addi $r12, $r0, 257
+		addi $r13, $r0, 1
+		addi $r14, $r0, 18
+		addi $r31, $r0, test_sequence_2n_dd_loop_return_point
+
+	test_sequence_2n_dd_loop:
+		or   $r7, $r11, $r13
+		henc $r8, $r4
+		xor  $r8, $r8, $r12
+		hdec $r9, $r8
+		j    test_sequence_check_success
+
+	test_sequence_2n_dd_loop_return_point:
+		sll  $r12, $r12, 1
+		addi $r13, $r13, 1
+		blt  $r13, $r14, test_sequence_2n_dd_loop
 
 	test_sequence_return:
 		addi $r2, $r16, 0
-		addi $r29, $r29, 2
+		addi $r29, $r29, 4
 		lw   $r31, 0($r29)
 		lw   $r16, -1($r29)
+		lw   $r17, -2($r29)
+		lw   $r18, -3($r29)
 		jr   $r31
 
 main:
