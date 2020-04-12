@@ -9909,13 +9909,14 @@
     <appear>
       <rect fill="none" height="40" stroke="#000000" stroke-width="2" width="40" x="50" y="50"/>
       <circ-port height="8" pin="170,320" width="8" x="46" y="66"/>
-      <circ-port height="10" pin="900,310" width="10" x="85" y="55"/>
+      <circ-port height="10" pin="930,240" width="10" x="85" y="55"/>
       <circ-port height="10" pin="1190,700" width="10" x="85" y="75"/>
       <circ-anchor facing="east" height="6" width="6" x="87" y="57"/>
     </appear>
     <wire from="(450,560)" to="(700,560)"/>
     <wire from="(450,320)" to="(510,320)"/>
     <wire from="(450,330)" to="(500,330)"/>
+    <wire from="(890,240)" to="(890,310)"/>
     <wire from="(530,360)" to="(780,360)"/>
     <wire from="(720,550)" to="(780,550)"/>
     <wire from="(770,310)" to="(770,720)"/>
@@ -9924,7 +9925,6 @@
     <wire from="(260,700)" to="(550,700)"/>
     <wire from="(450,540)" to="(680,540)"/>
     <wire from="(450,380)" to="(540,380)"/>
-    <wire from="(880,310)" to="(900,310)"/>
     <wire from="(450,390)" to="(480,390)"/>
     <wire from="(570,400)" to="(780,400)"/>
     <wire from="(330,630)" to="(360,630)"/>
@@ -9984,6 +9984,7 @@
     <wire from="(770,720)" to="(1090,720)"/>
     <wire from="(550,380)" to="(780,380)"/>
     <wire from="(740,570)" to="(780,570)"/>
+    <wire from="(890,240)" to="(930,240)"/>
     <wire from="(450,550)" to="(690,550)"/>
     <wire from="(450,530)" to="(670,530)"/>
     <wire from="(490,350)" to="(490,640)"/>
@@ -10062,6 +10063,7 @@
     <wire from="(580,410)" to="(780,410)"/>
     <wire from="(450,580)" to="(720,580)"/>
     <wire from="(240,310)" to="(250,310)"/>
+    <wire from="(880,310)" to="(890,310)"/>
     <wire from="(880,310)" to="(880,360)"/>
     <comp lib="1" loc="(610,680)" name="XOR Gate">
       <a name="width" val="5"/>
@@ -10085,13 +10087,6 @@
     <comp lib="1" loc="(1150,700)" name="AND Gate">
       <a name="inputs" val="2"/>
       <a name="negate1" val="true"/>
-    </comp>
-    <comp lib="0" loc="(900,310)" name="Pin">
-      <a name="facing" val="west"/>
-      <a name="output" val="true"/>
-      <a name="width" val="26"/>
-      <a name="label" val="data_out"/>
-      <a name="labelloc" val="east"/>
     </comp>
     <comp lib="1" loc="(990,520)" name="XOR Gate">
       <a name="inputs" val="31"/>
@@ -10137,10 +10132,12 @@
       <a name="tristate" val="false"/>
       <a name="label" val="data_in"/>
     </comp>
-    <comp lib="2" loc="(430,630)" name="Decoder">
-      <a name="select" val="5"/>
-      <a name="disabled" val="0"/>
-      <a name="enable" val="false"/>
+    <comp lib="0" loc="(930,240)" name="Pin">
+      <a name="facing" val="west"/>
+      <a name="output" val="true"/>
+      <a name="width" val="26"/>
+      <a name="label" val="data_out"/>
+      <a name="labelloc" val="east"/>
     </comp>
     <comp lib="0" loc="(800,330)" name="Splitter">
       <a name="facing" val="west"/>
@@ -10152,6 +10149,11 @@
       <a name="fanout" val="5"/>
       <a name="incoming" val="5"/>
     </comp>
+    <comp lib="2" loc="(430,630)" name="Decoder">
+      <a name="select" val="5"/>
+      <a name="disabled" val="0"/>
+      <a name="enable" val="false"/>
+    </comp>
     <comp lib="0" loc="(880,680)" name="Splitter">
       <a name="fanout" val="5"/>
       <a name="incoming" val="5"/>
@@ -10160,6 +10162,9 @@
       <a name="fanout" val="26"/>
       <a name="incoming" val="26"/>
       <a name="appear" val="right"/>
+    </comp>
+    <comp lib="6" loc="(619,309)" name="Text">
+      <a name="text" val="this wire is asserted if old data and old parity match"/>
     </comp>
     <comp lib="1" loc="(1080,680)" name="XOR Gate">
       <a name="inputs" val="2"/>
