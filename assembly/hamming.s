@@ -51,7 +51,7 @@ test_sequence:
 		sll  $r17, $r17, 24
 		addi $r18, $r0, 136
 		sll  $r18, $r18, 24
-		j    test_sequence_0n
+		j    test_sequence_2n_pp
 
 	# $r7: test code
 	test_sequence_check_success:
@@ -84,7 +84,8 @@ test_sequence:
 		j    test_sequence_check_success
 
 	test_sequence_1n:
-		sll  $r11, $r7, 1
+		addi $r11, $r0, 2
+		sll  $r11, $r11, 28
 		addi $r12, $r0, 1
 		addi $r13, $r0, 1
 		addi $r31, $r0, test_sequence_1n_loop_return_point
@@ -102,8 +103,8 @@ test_sequence:
 		bne  $r12, $r0, test_sequence_1n_loop
 
 	test_sequence_2n_dd:
-		sra  $r12, $r11, 1
-		add  $r11, $r11, $r12
+		addi $r11, $r0, 3
+		sll  $r11, $r11, 28
 		addi $r12, $r0, 257
 		addi $r13, $r0, 1
 		addi $r14, $r0, 18
@@ -120,6 +121,29 @@ test_sequence:
 		sll  $r12, $r12, 1
 		addi $r13, $r13, 1
 		blt  $r13, $r14, test_sequence_2n_dd_loop
+
+	test_sequence_2n_pp:
+		addi $r11, $r0, 4
+		sll  $r11, $r11, 28
+		addi $r13, $r0, 8
+		addi $r14, $r0, 16
+		addi $r31, $r0, test_sequence_2n_pp_loop_return_point
+
+	test_sequence_2n_pp_loop:
+	    add  $r12, $r13, $r14
+		or   $r7, $r11, $r12
+		sll  $r12, $r12, 26
+		henc $r8, $r4
+		xor  $r8, $r8, $r12
+		hdec $r9, $r8
+		j    test_sequence_check_success
+
+	test_sequence_2n_pp_loop_return_point:
+		sra  $r13, $r13, 1
+		bne  $r13, $r0, test_sequence_2n_pp_loop
+		sra  $r14, $r14, 1
+		sra  $r13, $r14, 1
+		bne  $r13, $r0, test_sequence_2n_pp_loop
 
 	test_sequence_return:
 		addi $r2, $r16, 0
