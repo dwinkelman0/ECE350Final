@@ -29,6 +29,7 @@ struct instruction_t
 #define OPCODE_HDEC   0x7
 #define OPCODE_XOR    0x8
 #define OPCODE_NOT    0x9
+#define OPCODE_PCNT   0xa
 #define OPCODE_SW     0x7
 #define OPCODE_LW     0x8
 #define OPCODE_J      0x1
@@ -44,8 +45,8 @@ instruction_t opcode_arr[] = {
     instruction_t(OPCODE_ALU, OPCODE_ADD,		   "add",   R),
     instruction_t(OPCODE_ADDI, OPCODE_ALU_DEFAULT, "addi",  I),
     instruction_t(OPCODE_ALU, OPCODE_SUB,		   "sub",   R),
-	instruction_t(OPCODE_ALU, OPCODE_AND,		   "and",   R),
-	instruction_t(OPCODE_ALU, OPCODE_OR,		   "or",    R),
+    instruction_t(OPCODE_ALU, OPCODE_AND,		   "and",   R),
+    instruction_t(OPCODE_ALU, OPCODE_OR,		   "or",    R),
     instruction_t(OPCODE_ALU, OPCODE_SLL,		   "sll",   RSH),
     instruction_t(OPCODE_ALU, OPCODE_SRA,		   "sra",   RSH),
     instruction_t(OPCODE_SW, OPCODE_ALU_DEFAULT,   "sw",    IDisp),
@@ -60,7 +61,8 @@ instruction_t opcode_arr[] = {
     instruction_t(OPCODE_ALU, OPCODE_HENC, "henc", R2RS),
     instruction_t(OPCODE_ALU, OPCODE_HDEC, "hdec", R2RS),
     instruction_t(OPCODE_ALU, OPCODE_XOR, "xor", R),
-    instruction_t(OPCODE_ALU, OPCODE_NOT, "not", R2RS)
+    instruction_t(OPCODE_ALU, OPCODE_NOT, "not", R2RS),
+    instruction_t(OPCODE_ALU, OPCODE_PCNT, "pcnt", R2RS),
 };
 
 // for CPUs without a shift (such as ones that have a rotate instead), the 'ldia' (also known as the 'la' instruction) can use multiple successive adds to shift a register to encode a full 16-bit immediate.
